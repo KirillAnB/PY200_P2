@@ -1,5 +1,6 @@
 from typing import Optional
 from book import Book
+from book_gen import get_random_book
 
 BOOKS_DATABASE = [
     {
@@ -58,8 +59,14 @@ if __name__ == '__main__':
     empty_library = Library()  # инициализируем пустую библиотеку
     print(empty_library.get_next_book_id())  # проверяем следующий id для пустой библиотеки
 
+    # list_books = [
+    #     Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
+    # ]
+    random_books_generator = get_random_book()
+    BOOKS_DATABASE_2 = [next(random_books_generator) for _ in range(3)]
     list_books = [
-        Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
+        Book(id_=book_dict["pk"], name=book_dict["fields"]['title'], pages=book_dict["fields"]['pages']) for book_dict
+        in BOOKS_DATABASE_2
     ]
     library_with_books = Library(books=list_books)  # инициализируем библиотеку с книгами
     print(library_with_books.get_next_book_id())  # проверяем следующий id для непустой библиотеки

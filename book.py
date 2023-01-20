@@ -1,3 +1,5 @@
+from book_gen import get_random_book
+
 BOOKS_DATABASE = [
     {
         "id": 1,
@@ -37,9 +39,12 @@ class Book():
 
 if __name__ == '__main__':
     # инициализируем список книг
+    random_books_generator = get_random_book()
+    BOOKS_DATABASE_2 = [next(random_books_generator) for _ in range(3)]
     list_books = [
-        Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
+        Book(id_=book_dict["pk"], name=book_dict["fields"]['title'], pages=book_dict["fields"]['pages']) for book_dict in BOOKS_DATABASE_2
     ]
+
     for book in list_books:
         print(book)  # проверяем метод __str__
 
